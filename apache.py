@@ -14,15 +14,15 @@ def installDependencies():
 
 def downloadMedia(apacheV, aprV, aprutilV):
     # downloadinf media for apache and apr utils
-    commandApache = "wget", "-c http://www.apache.org/dist/httpd" + apacheV + ".tar.gz"
-    commandApr = "wget", "-c http://mirror.cogentco.com/pub/apache/apr/" + aprV +".tar.gz"
-    commandAprUtils = "wget","-c http://mirror.cogentco.com/pub/apache/apr/" + aprutilV + ".tar.gz"
+    commandApache = "-c http://www.apache.org/dist/httpd" + apacheV + ".tar.gz"
+    commandApr = "-c http://mirror.cogentco.com/pub/apache/apr/" + aprV +".tar.gz"
+    commandAprUtils = "-c http://mirror.cogentco.com/pub/apache/apr/" + aprutilV + ".tar.gz"
 
     ##
     os.chdir("/usr/src")
-    subprocess.call(commandApache)
-    subprocess.call(commandApr)
-    subprocess.call(commandAprUtils)
+    subprocess.call("wget", commandApache)
+    subprocess.call("wget", commandApr)
+    subprocess.call("wget", commandAprUtils)
 
     # Apache package extraction
     try:
@@ -77,3 +77,23 @@ def postInstall():
     ## copy the keys and certs
     ## 
     print()
+
+
+
+
+# Main module
+
+if __name__ ==  "__main__":
+    print("Executing main Module")
+    
+    #Dependencies
+    installDependencies()
+
+    # Installable downloads and Extraction from tar.gz
+    downloadMedia("httpd-2.4.43", "apr-1.6.5", "apr-util-1.6.1")
+
+    # Compiling the source - Installing the apache
+    compileSrc("/usr/src/httpd-2.4.43")
+
+    # post Installation steps
+    postInstall()
