@@ -14,9 +14,13 @@ def installDependencies():
 
 def downloadMedia(apacheV, aprV, aprutilV):
     # downloadinf media for apache and apr utils
-    commandApache = "-c http://www.apache.org/dist/httpd" + apacheV + ".tar.gz"
-    commandApr = "-c http://mirror.cogentco.com/pub/apache/apr/" + aprV +".tar.gz"
-    commandAprUtils = "-c http://mirror.cogentco.com/pub/apache/apr/" + aprutilV + ".tar.gz"
+    apacheTar = apacheV + ".tar.gz"
+    aprTar = aprV +".tar.gz"
+    aprutilTar = aprutilV + ".tar.gz"
+
+    commandApache = "-c http://www.apache.org/dist/httpd" + apacheTar
+    commandApr = "-c http://mirror.cogentco.com/pub/apache/apr/" + aprTar
+    commandAprUtils = "-c http://mirror.cogentco.com/pub/apache/apr/" + aprutilTar
 
     ##
     os.chdir("/usr/src")
@@ -27,7 +31,7 @@ def downloadMedia(apacheV, aprV, aprutilV):
     # Apache package extraction
     try:
         print("Extracting Apache TAR")
-        tar_apache = tarfile.open(apacheV)
+        tar_apache = tarfile.open(apacheTar)# edit this
         tar_apache.extractall() # specify which folder to extract to
         tar_apache.close()
     except:
@@ -37,7 +41,7 @@ def downloadMedia(apacheV, aprV, aprutilV):
     # Apr package extraction
     try:
         print("Extracting APR TAR")
-        tar_apr = tarfile(aprV)
+        tar_apr = tarfile(aprTar)
         tar_apr.extractall()
         tar_apr.close()
     except:
@@ -46,7 +50,7 @@ def downloadMedia(apacheV, aprV, aprutilV):
     # Apr utils package extraction
     try:
         print("Extracting AprUtils TAR")
-        tar_aprutils = tarfile(aprutilV)
+        tar_aprutils = tarfile(aprutilTar)
         tar_aprutils.extractall()
         tar_aprutils.close()
     except:
@@ -77,6 +81,15 @@ def postInstall():
     ## copy the keys and certs
     ## 
     print()
+
+
+def sslCerts():
+    # generating certs and key
+    print()
+
+
+def validation():
+    # this method will be validating all the configuration
 
 
 
