@@ -87,7 +87,49 @@ def sslCerts():
     # generating certs and key
     print()
 
+def cert_gen(
+    
+    commonName,
+    KEY_FILE,
+    CERT_FILE,
+    countryName="FR",
+    localityName="localityName",
+    stateOrProvinceName="IDF",
+    organizationName="3DSGS",
+    organizationUnitName="Services",
+    serialNumber=0,
+    validityStartInSeconds=450,
+    validityEndInSeconds=10*365*24*60*60,
+    ):
 
+    k = crypto.PKey()
+    k.generate_key(crypto.TYPE_RSA, 4096)
+    # create a self-signed cert
+    cert = crypto.X509()
+    cert.get_subject().C = countryName
+    cert.get_subject().ST = stateOrProvinceName
+    cert.get_subject().L = localityName
+    cert.get_subject().O = organizationName
+    cert.get_subject().OU = organizationUnitName
+    cert.get_subject().CN = commonName
+    cert.set_serial_number(serialNumber)
+    cert.gmtime_adj_notBefore(0)
+    cert.gmtime_adj_notAfter(validityEndInSeconds)
+    cert.set_issuer(cert.get_subject())
+    cert.set_pubkey(k)
+    cert.sign(k, 'sha512')
+    with open(CERT_FILE, "wt") as f:
+        f.write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8"))
+    with open(KEY_FILE, "wt") as f:
+        f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k).decode("utf-8"))
+
+
+def copyfile(source,target):
+    if(os.path.isfile(source)):
+        shutil.copy2(source, target,follow_symlinks=True)
+    elif(os.path.isdir(source)):
+        shutil.copytree(source,target)
+        
 def validation():
     # this method will be validating all the configuration
 
