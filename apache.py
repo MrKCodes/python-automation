@@ -90,7 +90,7 @@ def sslCerts():
 
 def validation():
     # this method will be validating all the configuration
-
+    print()
 
 
 
