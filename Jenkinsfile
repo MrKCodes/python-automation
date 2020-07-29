@@ -15,7 +15,7 @@ pipeline {
 		// }
 	  stage('Build the code') {
 		steps{
-                echo "building the code from dev branch"
+                echo "building the code from feature-1 branch"
     		}
 		}
 		//when {
