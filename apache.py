@@ -2,6 +2,7 @@ import os
 import subprocess
 import tarfile
 import shutil
+import crypt
 
 # Dependencies installations
 
@@ -86,7 +87,7 @@ def postInstall():
 def sslCerts():
     # generating certs and key
     print()
-
+"""
 def cert_gen(
     
     commonName,
@@ -122,7 +123,7 @@ def cert_gen(
         f.write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8"))
     with open(KEY_FILE, "wt") as f:
         f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k).decode("utf-8"))
-
+"""
 
 def copyfile(source,target):
     if(os.path.isfile(source)):
